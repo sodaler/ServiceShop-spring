@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        Заказы
+    </title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Код заказа</th>
+                <th scope="col">Название</th>
+                <th scope="col">Поручитель</th>
+                <th scope="col">Примечание</th>
+                <th scope="col">Итоговая цена</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order, iterator: ${orders}">
+                <th scope="row" th:text="${iterator.index} + 1"/>
+                <td th:text="${order.id}"/>
+                <td th:text="${order.userAddress}"/>
+                <td th:text="${order.login}"/>
+                <td th:text="${order.userPhone}"/>
+                <td th:text="${order.amount}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a class="btn btn-success button-fixed"
+           th:href="@{/orders/edit/}">
+            <i class="fa-solid fa-plus"></i> Заказать
+        </a>
+    </div>
+</div>
+</body>
+</html>
