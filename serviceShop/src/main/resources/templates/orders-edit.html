@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        Добавление заказа
+    </title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:text="${errors}" class="margin-bottom alert-danger"></div>
+    <form action="#" th:action="@{/orders/{id}(id=${id})}" th:object="${orderDto}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Название</label>
+            <input type="text" class="form-control" id="name" th:field="${orderDto.userAddress}" required="true">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Примечание</label>
+            <input type="text" class="form-control" id="description" th:field="${orderDto.userPhone}"
+                   required="true">
+        </div>
+        <div class="mb-3">
+            <label for="multiple-types" class="form-label">Заявки</label>
+            <select id="multiple-types" th:field="${orderDto.requests}"
+                    class="form-control" multiple="multiple">
+                <option th:each="request: ${requests}"
+                        th:value="${request.name}" th:text="${request.name}">
+            </select>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary button-fixed">
+                <span th:if="${id == null}">Заказать</span>
+            </button>
+            <a class="btn btn-secondary button-fixed" th:href="@{/orders}">
+                Назад
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

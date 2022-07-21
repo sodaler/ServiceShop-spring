@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Главная</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="../public/favicon.svg">
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.1.0/css/all.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <i class="fa-solid fa-font-awesome"></i>
+            Сервис по оказании услуг "myService"
+        </a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav" th:with="activeLink=${#request.requestURI}" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="/"
+                   th:classappend="${#strings.equals(activeLink, '/')} ? 'active' : ''">Главная</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/orders"
+                   th:classappend="${#strings.equals(activeLink, '/orders')} ? 'active' : ''">Заказы</a>
+                <a class="nav-link" href="/requests/admin"
+                   th:classappend="${#strings.equals(activeLink, '/requests/admin')} ? 'active' : ''">Заявки</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/types"
+                   th:classappend="${#strings.equals(activeLink, '/types')} ? 'active' : ''">Типы заявок</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/users"
+                   th:classappend="${#strings.equals(activeLink, '/users')} ? 'active' : ''">Пользователи</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/swagger-ui/index.html"
+                   th:classappend="${#strings.equals(activeLink, '/swagger-ui/index.html')} ? 'active' : ''">Документация
+                    REST API</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/h2-console/"
+                   th:classappend="${#strings.equals(activeLink, '/h2-console/')} ? 'active' : ''">Консоль H2</a>
+                <a class="nav-link" href="/logout">
+                    Выход (<span th:text="${#authentication.name}"></span>)
+                </a>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="container container-padding" layout:fragment="content">
+    </div>
+</div>
+</body>
+<th:block layout:fragment="scripts">
+</th:block>
+</html>
